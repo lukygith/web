@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DynMapa | SchoolCraft.cz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      text-align: center;
+    }
+    header {
+      background-color: #161b22;
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 2px solid #30363d;
+      position: relative;
+    }
+    header h1 {
+      color: #a8e63a;
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    header img {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      height: 100px; /* Zvýšená velikost loga */
+    }
+    nav {
+      background-color: #21262d;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      border-bottom: 1px solid #30363d;
+    }
+    nav a {
+      color: #a8e63a;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav a:hover {
+      color: #8d7e3d;
+    }
+    section {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    h2 {
+      color: #8d7e3d;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #8b949e;
+      font-size: 0.9rem;
+    }
+    .dynmap-button {
+      display: inline-block;
+      background-color: #58a6ff;
+      color: #fff;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      margin-top: 2rem;
+    }
+    .dynmap-button:hover {
+      background-color: #4b8fd8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="SchoolCraft Logo"> <!-- Logo v levém horním rohu -->
+    <h1>SchoolCraft.cz - DynMapa</h1>
+    <p>Prozkoumejte náš Minecraft svět na živé mapě.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Hlavní stránka</a>
+    <a href="pravidla.html">Pravidla</a>
+    <a href="dynmapa.html">DynMapa</a>
+    <a href="pripojeni.html">Připojení</a>
+  </nav>
+
+  <section>
+    <h2>Prozkoumejte náš svět</h2>
+    <p>Naše dynamická mapa (DynMapa) umožňuje prozkoumávat celý svět serveru v reálném čase. Klikněte na tlačítko níže pro přístup k naší mapě.</p>
+    <!-- Tlačítko pro přístup k DynMapě -->
+    <a href="https://našadynmapa.com" class="dynmap-button" target="_blank">Otevřít DynMapu</a>
+  </section>
+
+  <footer>
+    &copy; 2025 SchoolCraft.cz – Všechna práva vyhrazena
+  </footer>
+</body>
+</html>
