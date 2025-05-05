@@ -18,6 +18,7 @@
       text-align: center;
       border-bottom: 2px solid #30363d;
       position: relative;
+      padding-left: 120px; /* Začíná místo pro logo */
     }
     header h1 {
       color: #a8e63a;
@@ -60,10 +61,17 @@
       height: auto;
     }
     @media (max-width: 768px) {
+      header {
+        padding-left: 0;
+        text-align: left;
+      }
       .logo {
+        width: 80px;
         top: 10px;
         left: 10px;
-        width: 80px;
+      }
+      header h1 {
+        font-size: 2.5rem;
       }
     }
   </style>
