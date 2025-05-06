@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SchoolCraft.cz</title>
+  <title>Pravidla | SchoolCraft.cz</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -11,17 +11,16 @@
       font-family: 'Montserrat', sans-serif;
       background-color: #0d1117;
       color: #e6edf3;
+      position: relative;
     }
     header {
       background-color: #161b22;
       padding: 2rem;
       text-align: center;
       border-bottom: 2px solid #30363d;
-      position: relative;
-      padding-left: 120px; /* Začíná místo pro logo */
     }
     header h1 {
-      color: #a8e63a;
+      color: #a8e63a; /* Zelená pro název */
       font-size: 3rem;
       font-weight: bold;
     }
@@ -34,18 +33,21 @@
       border-bottom: 1px solid #30363d;
     }
     nav a {
-      color: #a8e63a;
+      color: #a8e63a; /* Zelená pro text */
       text-decoration: none;
       font-weight: 600;
     }
     nav a:hover {
-      color: #8d7e3d;
+      color: #8d7e3d; /* Hnědá pro hover efekt */
     }
     section {
       max-width: 800px;
       margin: 2rem auto;
       padding: 0 1rem;
-      text-align: center;
+      text-align: left;
+    }
+    h2 {
+      color: #8d7e3d; /* Hnědá pro nadpisy */
     }
     footer {
       text-align: center;
@@ -53,47 +55,51 @@
       color: #8b949e;
       font-size: 0.9rem;
     }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      margin: 1rem 0;
+    }
+    /* CSS pro logo v levém horním rohu */
     .logo {
       position: absolute;
       top: 20px;
       left: 20px;
-      width: 100px;
+      width: 100px; /* Nastavte požadovanou velikost */
       height: auto;
-    }
-    @media (max-width: 768px) {
-      header {
-        padding-left: 0;
-        text-align: left;
-      }
-      .logo {
-        width: 80px;
-        top: 10px;
-        left: 10px;
-      }
-      header h1 {
-        font-size: 2.5rem;
-      }
     }
   </style>
 </head>
 <body>
+  <!-- Logo v levém horním rohu -->
+  <img src="logo.png" alt="SchoolCraft Logo" class="logo">
+
   <header>
-    <img src="logo.png" alt="SchoolCraft Logo" class="logo">
-    <h1>SchoolCraft.cz</h1>
-    <p>Komunitní survival Minecraft server pro studenty</p>
+    <h1>SchoolCraft.cz - Pravidla</h1>
+    <p>Seznam pravidel pro bezpečné a férové hraní na našem serveru</p>
   </header>
 
   <nav>
-    <a href="pravidla.html">Pravidla</a>
+    <a href="index.html">Hlavní stránka</a>
     <a href="dynmapa.html">DynMapa</a>
     <a href="pripojeni.html">Připojení</a>
     <a href="discord.html">Discord</a>
   </nav>
 
   <section>
-    <h2>O serveru</h2>
-    <p>SchoolCraft je komunitní Minecraft survival server určený především pro studenty. Chceme vytvořit přátelské a férové prostředí pro hraní, stavění a spolupráci. Připoj se k nám!</p>
-    <p>Server běží na nejnovější verzi Minecraftu s lehkými úpravami pro lepší zážitek.</p>
+    <h2>Pravidla serveru</h2>
+    <ul>
+      <li><strong>1. Žádné griefingování:</strong> Neničte stavby ostatních hráčů. Pokud něco poškodíte nebo zničíte, budete zablokováni.</li>
+      <li><strong>2. Žádný cheating nebo hackování:</strong> Používání jakýchkoli cheatů, hacků nebo modifikací je zakázáno.</li>
+      <li><strong>3. Respektujte ostatní hráče:</strong> Zachovávejte přátelské a respektující chování vůči ostatním členům komunity.</li>
+      <li><strong>4. No spamming:</strong> Neposílejte opakující se zprávy ve hře, ani na chatu.</li>
+      <li><strong>5. No griefing v noci:</strong> Během noci je zakázáno provádět žádné destruktivní akce, které mohou poškodit server nebo hráče.</li>
+      <li><strong>6. Používejte fair play:</strong> Nezneužívejte herní mechaniky, aby jste získali výhodu nad ostatními hráči.</li>
+      <li><strong>7. Žádný rasismus, homofobie nebo jakákoli nenávistná projev:</strong> Chceme vytvořit bezpečný a přívětivý prostor pro všechny hráče.</li>
+      <li><strong>8. Dodržujte pokyny administrátorů:</strong> Pokud vám administrátor dává pokyny, dodržujte je. Oporu máte vždy k dispozici.</li>
+    </ul>
   </section>
 
   <footer>
