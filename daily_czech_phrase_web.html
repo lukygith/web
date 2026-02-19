@@ -2,43 +2,147 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<title>České ustálené spojení dne</title>
+<title>České ustálené spojení slovní dne!</title>
 <style>
-  body { font-family: Arial, sans-serif; padding: 50px; background-color: #e6f2e6; }
-  #phrase { font-size: 2em; color: #2e7d32; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom right, #5292e6, #ffffff);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #03456b;
+    text-align: center;
+  }
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+  }
+  #phrase {
+    font-size: 1.8em;
+    padding: 20px 40px;
+    border: 3px solid #145ca0;
+    border-radius: 15px;
+    background-color: #f0fff0;
+    max-width: 80%;
+    margin-bottom: 40px;
+    transition: all 0.5s ease;
+  }
+  button {
+    font-size: 1.2em;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0742c4;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  button:hover {
+    background-color: #0a5c83;
+  }
 </style>
 </head>
 <body>
 <h1>České ustálené spojení dne</h1>
 <div id="phrase">Načítám...</div>
+<button id="nextBtn">Další slovní spojení</button>
 
 <script>
-// Funkce pro získání dne v roce, aby každý den byl jiný index
-function getDayOfYear() {
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const diff = now - start;
-  const oneDay = 1000 * 60 * 60 * 24;
-  return Math.floor(diff / oneDay);
+// Seznam frází
+const phrases = [
+"Být bez sebe","Být bezradný","Být bez práce","Být beze slov",
+"Být jako ryba ve vodě","Být jako doma","Být jako v bavlnce","Být jako na trní",
+"Být jako na jehlách","Být jako tělo bez duše","Být kapku vedle","Být k nezaplacení",
+"Být kost a kůže","Být mimo mísu","Být na dně","Být na koni",
+"Být na nože","Být na odpis","Být na roztrhání","Být na vážkách",
+"Být na štíru","Být na špici","Být na suchu","Být nad věcí",
+"Být někomu trnem v oku","Být o krok napřed","Být pod psa","Být pod tlakem",
+"Být po uši zamilovaný","Být pravou rukou","Být pro smích","Být při smyslech",
+"Být při chuti","Být samá voda","Být sám sebou","Být světu pro smích",
+"Být tak akorát","Být v balíku","Být v koncích","Být v obraze",
+"Být v úzkých","Být v sedmém nebi","Být v jednom kole","Být ve svém živlu",
+"Být z obliga","Být z kola ven","Být za vodou","Být z formy",
+"Být z obliga","Házet flintu do žita","Házet perly sviním","Házet klacky pod nohy",
+"Chytat lelky","Chytat druhý dech","Chytit vítr do plachet","Chytit příležitost za pačesy",
+"Chodit kolem horké kaše","Chodit po špičkách","Chodit s křížkem po funuse","Chodit kanálama",
+"Jít na doraz","Jít s davem","Jít hlavou proti zdi","Jít do tuhého",
+"Jít na věc","Jít s kůží na trh","Jít přes mrtvoly","Jít si svou cestou",
+"Jít od válu","Jít po krku","Jít na ruku","Mít máslo na hlavě",
+"Mít hluboko do kapsy","Mít oči na stopkách","Mít za ušima","Mít ostré lokty",
+"Mít srdce na dlani","Mít hlavu v oblacích","Mít pevnou půdu pod nohama","Mít dlouhé prsty",
+"Mít jazyk na špacír","Mít nervy ze železa","Mít žaludek na něco","Mít něco v malíku",
+"Mít něco na háku","Mít plné zuby něčeho","Mít zaděláno na problém","Mít ruce svázané",
+"Mít vítr v plachtách","Mít velké oči","Mít kliku","Mít štěstí v neštěstí",
+"Mít z pekla štěstí","Mít za lubem","Mít všech pět pohromadě","Mít pusu na špacír",
+"Mít napilno","Mít co do činění","Mít jasno","Mít na kahánku",
+"Mít na růžích ustláno","Mít na talíři","Mít pod čepicí","Mít pod palcem",
+"Mít proti srsti","Mít slabost pro něco","Mít svatozář nad hlavou","Mít tvrdou hlavu",
+"Mít volnou ruku","Mít za co","Mít zelenou","Dát někomu košem",
+"Dát někomu za vyučenou","Dát hlavu na špalek","Dát si na čas","Dát si do těla",
+"Dát si pohov","Dát někomu na frak","Dát někomu přes prsty","Dát si říct",
+"Dát ruce pryč","Dát si voraz","Dát někomu nůž na krk","Dát věci do pořádku",
+"Dát se do kupy","Dát se do řeči","Dát se do práce","Dát se na modlení",
+"Dát se na útěk","Dát průchod emocím","Dát prostor","Dát vale",
+"Vzít nohy na ramena","Vzít vítr z plachet","Vzít rozum do hrsti","Vzít si k srdci",
+"Vzít někoho na milost","Vzít útokem","Vzít pod ochranu","Vzít zpátečku",
+"Vzít si na mušku","Držet jazyk za zuby","Držet palce","Držet basu",
+"Držet krok","Držet se zpátky","Držet někoho pod krkem","Držet slovo",
+"Držet hubu a krok","Strkat hlavu do písku","Strkat nos do cizích věcí","Spadnout z višně",
+"Spadnout do klína","Spadnout z oblak","Spadnout do řeči","Narazit na kámen úrazu",
+"Naletět jako moucha na med","Nalít si čistého vína","Narovnat si páteř","Nahnat někomu strach",
+"Nahánět hrůzu","Udělat z komára velblouda","Udělat si ostudu","Udělat tlustou čáru",
+"Udělat první krok","Udělat si jasno","Udělat si pořádek","Udělat někomu radost",
+"Udělat si čas","Udělat si srandu","Udělat díru do světa","Udělat dobrý dojem",
+"Udělat krátký proces","Ztratit hlavu","Ztratit nervy","Ztratit půdu pod nohama",
+"Ztratit tvář","Ztratit řeč","Ztratit zábrany","Zamést stopy",
+"Zamíchat kartami","Zamést před vlastním prahem","Zahodit šanci","Zahnout někomu",
+"Zakopat válečnou sekeru","Zakousnout se do práce","Zastavit čas","Zvednout kotvy",
+"Zvednout náladu","Zvednout hlas","Zvednout hlavu","Zůstat stát s otevřenou pusou",
+"Zůstat nohama na zemi","Zůstat na ocet","Zůstat v klidu","Bez práce nejsou koláče",
+"Co se v mládí naučíš, ve stáří jako když najdeš","Ranní ptáče dál doskáče","Kdo jinému jámu kopá, sám do ní padá","Tichá voda břehy mele",
+"Kdo šetří, má za tři","Komu se nelení, tomu se zelení","Darovanému koni na zuby nehleď","Lepší vrabec v hrsti než holub na střeše",
+"Tak dlouho se chodí se džbánem pro vodu, až se ucho utrhne","Kdo se směje naposled, ten se směje nejlíp","Všechno zlé je pro něco dobré","Není všechno zlato, co se třpytí",
+"Boží mlýny melou pomalu, ale jistě","Kdo chce kam, pomozme mu tam","Vlk se nažral a koza zůstala celá","Zakázané ovoce nejvíc chutná",
+"Pes, který štěká, nekouše","Kdo rychle dává, dvakrát dává","Kdo pozdě chodí, sám sobě škodí","Trpělivost růže přináší",
+"Jak si kdo ustele, tak si lehne","Kdo nic nedělá, nic nezkazí","Kdo hledá, najde","Kdo mlčí, souhlasí",
+"Kdo se bojí, nesmí do lesa","Kdo jinému přeje, tomu se zelení","Kdo chce psa bít, hůl si najde","Jak na Nový rok, tak po celý rok",
+"Sucho na půdě, mokro ve studni","Kdo maže, ten jede","Kdo dřív přijde, ten dřív mele","Bez peněz do hospody nelez",
+"Kdo nehraje, nevyhraje","Kdo vydrží, vyhraje","Kdo zaváhá, nežere","Kam vítr, tam plášť",
+"Komu není rady, tomu není pomoci","Kovářova kobyla chodí bosa","Lež má krátké nohy","Malé ryby taky ryby",
+"Neříkej hop, dokud nepřeskočíš","Odříkaného chleba největší krajíc","Potrefená husa se vždycky ozve","Starého psa novým kouskům nenaučíš",
+"Tak se chodí se džbánem pro vodu","Účel světí prostředky","V nouzi poznáš přítele","Vrána k vráně sedá",
+"Zvyk je železná košile"
+];
+
+function showPhrase(index) {
+  document.getElementById('phrase').textContent = phrases[index % phrases.length];
 }
 
-// Načtení JSON souboru
-fetch('ceska_spojeni.json')
-  .then(response => response.json())
-  .then(data => {
-    const phrases = data.ustalena_spojeni;
-    if (phrases && phrases.length > 0) {
-      // Použijeme index dne pro stabilní výběr na každý den
-      const dayIndex = getDayOfYear() % phrases.length;
-      document.getElementById('phrase').textContent = phrases[dayIndex];
-    } else {
-      document.getElementById('phrase').textContent = 'Žádná data k zobrazení';
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById('phrase').textContent = 'Chyba při načítání dat';
-  });
+function getIndexForNow() {
+  const now = new Date();
+  const day = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  const halfDay = now.getHours() < 12 ? 0 : 1;
+  return (day * 2 + halfDay) % phrases.length;
+}
+
+let currentIndex = getIndexForNow();
+showPhrase(currentIndex);
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  currentIndex = Math.floor(Math.random() * phrases.length);
+  showPhrase(currentIndex);
+});
+
+setInterval(() => {
+  const indexNow = getIndexForNow();
+  if (indexNow !== currentIndex) {
+    currentIndex = indexNow;
+    showPhrase(currentIndex);
+  }
+}, 60000);
 </script>
 </body>
 </html>
