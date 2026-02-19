@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 - Stránka se vypařila</title>
+<style>
+  :root {
+    --primary: #0742c4;
+    --text: #03456b;
+    --bg-grad: linear-gradient(135deg, #66a6ff 0%, #89f7fe 100%);
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-grad);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    text-align: center;
+  }
+
+  .error-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px 30px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 90%;
+    backdrop-filter: blur(10px);
+  }
+
+  .error-code {
+    font-size: 8rem;
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+    background: linear-gradient(to bottom, #0742c4, #89f7fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.8;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 20px 0 10px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-style: italic;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-weight: bold;
+    transition: transform 0.2s;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+  }
+
+  .idiom-box {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #abc;
+    font-size: 0.9rem;
+    color: #5b7a8c;
+  }
+</style>
+</head>
+<body>
+
+<div class="error-card">
+  <div class="error-code">404</div>
+  <h1>Tady chcípl pes.</h1>
+  <p>Hledaná stránka <b>vzala nohy na ramena</b> a už je nejspíš za horama.</p>
+  
+  <a href="/" class="btn">Vrátit se domů</a>
+
+  <div class="idiom-box">
+    Možná jsme <b>šlápli vedle</b>, zkuste to znovu od začátku.
+  </div>
+</div>
+
+</body>
+</html>
