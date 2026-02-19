@@ -2,59 +2,119 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<title>České ustálené spojení slovní dne!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Česká spojení dne</title>
 <style>
+  :root {
+    --primary: #0742c4;
+    --secondary: #145ca0;
+    --bg-grad: linear-gradient(135deg, #66a6ff 0%, #89f7fe 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text: #03456b;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom right, #5292e6, #ffffff);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg-grad);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    margin: 0;
-    color: #03456b;
-    text-align: center;
+    color: var(--text);
   }
+
+  .container {
+    width: 100%;
+    max-width: 500px;
+    background: var(--card-bg);
+    padding: 30px 20px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
   h1 {
-    font-size: 2.5em;
-    margin-bottom: 50px;
+    font-size: 1.6rem;
+    margin: 0 0 10px 0;
+    color: var(--secondary);
+    line-height: 1.2;
   }
+
+  .times {
+    font-size: 0.9rem;
+    background: #e0f2fe;
+    padding: 5px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+
+  #phrase-container {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
   #phrase {
-    font-size: 1.8em;
-    padding: 20px 40px;
-    border: 3px solid #145ca0;
-    border-radius: 15px;
-    background-color: #f0fff0;
-    max-width: 80%;
-    margin-bottom: 40px;
-    transition: all 0.5s ease;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.4;
+    padding: 20px;
+    border-left: 5px solid var(--primary);
+    background: #f8fafc;
+    border-radius: 0 12px 12px 0;
+    width: 100%;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
+
   button {
-    font-size: 1.2em;
-    padding: 10px 25px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 16px;
     border: none;
-    border-radius: 10px;
-    background-color: #0742c4;
+    border-radius: 16px;
+    background: var(--primary);
     color: white;
     cursor: pointer;
-    transition: background 0.3s;
+    box-shadow: 0 4px 15px rgba(7, 66, 196, 0.3);
+    transition: all 0.2s active;
   }
-  button:hover {
-    background-color: #0a5c83;
+
+  button:active {
+    transform: scale(0.97);
+    background: var(--secondary);
   }
+
+  .fade-out { opacity: 0; transform: translateY(10px); }
 </style>
 </head>
 <body>
-<h1>České ustálené slovní spojení dne!</h1>
-<h2>12:00 a 6:00</h2>
-<div id="phrase">Načítám...</div>
-<button id="nextBtn">Další slovní spojení</button>
+
+<div class="container">
+  <h1>České spojení dne</h1>
+  <div class="times">Aktualizace: 6:00 • 12:00 • 18:00 • 0:00</div>
+  
+  <div id="phrase-container">
+    <div id="phrase">Načítám...</div>
+  </div>
+
+  <button id="nextBtn">Zkusit jiné</button>
+</div>
 
 <script>
-// Seznam frází
 const phrases = [
-"Být bez sebe","Být bezradný","Být bez práce","Být beze slov",
+    "Být bez sebe","Být bezradný","Být bez práce","Být beze slov",
 "Být jako ryba ve vodě","Být jako doma","Být jako v bavlnce","Být jako na trní",
 "Být jako na jehlách","Být jako tělo bez duše","Být kapku vedle","Být k nezaplacení",
 "Být kost a kůže","Být mimo mísu","Být na dně","Být na koni",
@@ -118,23 +178,36 @@ const phrases = [
 "Zvyk je železná košile"
 ];
 
+const phraseEl = document.getElementById('phrase');
+
 function showPhrase(index) {
-  document.getElementById('phrase').textContent = phrases[index % phrases.length];
+  phraseEl.classList.add('fade-out');
+  setTimeout(() => {
+    phraseEl.textContent = phrases[index % phrases.length];
+    phraseEl.classList.remove('fade-out');
+  }, 200);
 }
 
 function getIndexForNow() {
   const now = new Date();
   const day = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-  const halfDay = now.getHours() < 12 ? 0 : 1;
-  return (day * 2 + halfDay) % phrases.length;
+  const quarterDay = Math.floor(now.getHours() / 6); 
+  return (day * 4 + quarterDay) % phrases.length;
 }
 
 let currentIndex = getIndexForNow();
 showPhrase(currentIndex);
 
 document.getElementById('nextBtn').addEventListener('click', () => {
-  currentIndex = Math.floor(Math.random() * phrases.length);
+  let newIndex;
+  do {
+    newIndex = Math.floor(Math.random() * phrases.length);
+  } while (newIndex === currentIndex);
+  
+  currentIndex = newIndex;
   showPhrase(currentIndex);
+  
+  if (window.navigator.vibrate) window.navigator.vibrate(10);
 });
 
 setInterval(() => {
