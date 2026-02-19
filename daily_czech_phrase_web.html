@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>České ustálené spojení dne</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 50px; background-color: #e6f2e6; }
+  #phrase { font-size: 2em; color: #2e7d32; }
+</style>
+</head>
+<body>
+<h1>České ustálené spojení dne</h1>
+<div id="phrase">Načítám...</div>
+
+<script>
+// Funkce pro získání dne v roce, aby každý den byl jiný index
+function getDayOfYear() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  const oneDay = 1000 * 60 * 60 * 24;
+  return Math.floor(diff / oneDay);
+}
+
+// Načtení JSON souboru
+fetch('ceska_spojeni.json')
+  .then(response => response.json())
+  .then(data => {
+    const phrases = data.ustalena_spojeni;
+    if (phrases && phrases.length > 0) {
+      // Použijeme index dne pro stabilní výběr na každý den
+      const dayIndex = getDayOfYear() % phrases.length;
+      document.getElementById('phrase').textContent = phrases[dayIndex];
+    } else {
+      document.getElementById('phrase').textContent = 'Žádná data k zobrazení';
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById('phrase').textContent = 'Chyba při načítání dat';
+  });
+</script>
+</body>
+</html>
