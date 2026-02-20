@@ -1,1 +1,197 @@
-Hlavní stránky jsou teď mimo provoz.
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Údržba webu | lukkesa</title>
+  <meta name="description" content="Moje stránky jsou momentálně mimo provoz z důvodu údržby." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🛠️</text></svg>">
+  <style>
+    :root{
+      --bg: #0f1115;
+      --card: #171a21;
+      --text: #e7ecef;
+      --muted: #b6c2cf;
+      --accent: #f39c12;
+      --accent-contrast: #ffffff;
+      --ring: color-mix(in oklab, var(--accent) 40%, white);
+      --radius: 18px;
+      --maxw: 550px;
+    }
+
+    .light{
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #101418;
+      --muted: #4b5563;
+      --accent: #e67e22;
+      --accent-contrast: #ffffff;
+      --ring: color-mix(in oklab, var(--accent) 35%, black);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font: 16px/1.5 system-ui, -apple-system, sans-serif;
+      color:var(--text);
+      background:radial-gradient(1200px 800px at 10% -10%, color-mix(in oklab, var(--accent) 15%, var(--bg)), transparent 50%),
+                 radial-gradient(800px 600px at 100% 0%, color-mix(in oklab, var(--accent) 10%, var(--bg)), transparent 50%),
+                 var(--bg);
+      display:grid;
+      place-items:center;
+      padding:28px 16px;
+    }
+
+    .wrap{width:100%;max-width:var(--maxw);text-align:center}
+
+    .card{
+      background:var(--card);
+      border:1px solid color-mix(in oklab, var(--card) 85%, var(--text));
+      border-radius:calc(var(--radius) + 6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      padding:40px 28px;
+    }
+
+    .status-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: inline-block;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .title{margin:0;font-size:2rem;font-weight:800;letter-spacing:.2px}
+    .subtitle{margin:1rem 0;color:var(--muted);font-size:1.1rem}
+
+    /* Progress Bar sekce */
+    .progress-wrapper {
+      margin: 30px 0 10px;
+    }
+    .progress-container {
+      background: color-mix(in oklab, var(--text) 10%, var(--card));
+      height: 12px;
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid color-mix(in oklab, var(--card) 80%, var(--text));
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%; /* Nastavuje JS */
+      background: linear-gradient(90deg, var(--accent), color-mix(in oklab, var(--accent) 80%, white));
+      box-shadow: 0 0 15px color-mix(in oklab, var(--accent) 50%, transparent);
+      border-radius: 99px;
+      transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    .theme-toggle{
+      position: absolute; top: 20px; right: 20px;
+      appearance:none; border:1px solid color-mix(in oklab, var(--card) 82%, var(--text));
+      background:var(--card); color:var(--text);
+      border-radius:999px; padding:.4rem .7rem; cursor:pointer;
+    }
+
+    footer{ margin-top:30px; border-top: 1px solid color-mix(in oklab, var(--card) 85%, var(--text)); padding-top: 20px; }
+    .contact-link { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+    @media (max-width: 420px){
+      .title{ font-size:1.6rem }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" title="Přepnout motiv">🌓</button>
+
+  <main class="wrap">
+    <div class="card">
+      <div class="status-icon">🚧</div>
+      <h1 class="title">Probíhá údržba</h1>
+      <p class="subtitle">Pracuji na velkém updatu. <br>Vše bude hotové do konce února.</p>
+      
+      <div class="progress-wrapper">
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-labels">
+          <span>Spuštěno</span>
+          <span id="percentText">0%</span>
+          <span>28. února</span>
+        </div>
+      </div>
+
+      <footer>
+        <small style="color:var(--muted)">
+          Potřebujete mě nutně? <a href="https://instagram.com/lukkesa" class="contact-link">Napište mi na IG</a><br><br>
+          © <span id="year"></span> lukkesa
+        </small>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // --- Téma (Dark/Light) ---
+    const key = 'linktree-theme';
+    const root = document.documentElement;
+    const saved = localStorage.getItem(key);
+
+    function applyTheme(mode){
+      if(mode === 'light') root.classList.add('light');
+      else root.classList.remove('light');
+      localStorage.setItem(key, mode);
+    }
+    if(saved) applyTheme(saved);
+    else localStorage.setItem(key, 'dark');
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const current = localStorage.getItem(key);
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+
+    // --- Dynamický Progress Bar ---
+    function updateProgress() {
+      const now = new Date();
+      const year = now.getFullYear();
+      
+      // Nastavení startu (např. 15. února) a konce (28. února)
+      const startDate = new Date(year, 1, 15); // 1 = Únor (indexováno od 0)
+      const endDate = new Date(year, 1, 28);
+      
+      const total = endDate - startDate;
+      const current = now - startDate;
+      
+      let percent = Math.round((current / total) * 100);
+      
+      // Ošetření hranic (0-100%)
+      if (percent < 0) percent = 0;
+      if (percent > 100) percent = 100;
+
+      const bar = document.getElementById('progressBar');
+      const text = document.getElementById('percentText');
+      
+      // Malá pauza pro efekt animace po načtení
+      setTimeout(() => {
+        bar.style.width = percent + '%';
+        text.textContent = percent + '%';
+      }, 200);
+    }
+
+    updateProgress();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
