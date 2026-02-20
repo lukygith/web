@@ -1,98 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404 - Stránka se vypařila</title>
-<style>
-  :root {
-    --primary: #0742c4;
-    --text: #03456b;
-    --bg-grad: linear-gradient(135deg, #66a6ff 0%, #89f7fe 100%);
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 - Nenalezeno | lukkesa</title>
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👻</text></svg>">
+  <style>
+    :root{
+      --bg: #0f1115;
+      --card: #171a21;
+      --text: #e7ecef;
+      --muted: #b6c2cf;
+      --accent: #ff4757; /* Červená pro chybu */
+      --accent-contrast: #ffffff;
+      --ring: color-mix(in oklab, var(--accent) 40%, white);
+      --radius: 18px;
+      --maxw: 500px;
+    }
 
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg-grad);
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text);
-    text-align: center;
-  }
+    .light{
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #101418;
+      --muted: #4b5563;
+      --accent: #d63031;
+      --accent-contrast: #ffffff;
+      --ring: color-mix(in oklab, var(--accent) 35%, black);
+    }
 
-  .error-card {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 40px 30px;
-    border-radius: 30px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    max-width: 400px;
-    width: 90%;
-    backdrop-filter: blur(10px);
-  }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font: 16px/1.5 system-ui, -apple-system, sans-serif;
+      color:var(--text);
+      background:radial-gradient(1200px 800px at 10% -10%, color-mix(in oklab, var(--accent) 15%, var(--bg)), transparent 50%),
+                 radial-gradient(800px 600px at 100% 0%, color-mix(in oklab, var(--accent) 10%, var(--bg)), transparent 50%),
+                 var(--bg);
+      display:grid;
+      place-items:center;
+      padding:28px 16px;
+    }
 
-  .error-code {
-    font-size: 8rem;
-    font-weight: 900;
-    margin: 0;
-    line-height: 1;
-    background: linear-gradient(to bottom, #0742c4, #89f7fe);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0.8;
-  }
+    .wrap{width:100%;max-width:var(--maxw);text-align:center}
 
-  h1 {
-    font-size: 1.5rem;
-    margin: 20px 0 10px;
-  }
+    .card{
+      background:var(--card);
+      border:1px solid color-mix(in oklab, var(--card) 85%, var(--text));
+      border-radius:calc(var(--radius) + 6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      padding:50px 28px;
+    }
 
-  p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    font-style: italic;
-  }
+    .error-code {
+      font-size: 6rem;
+      font-weight: 900;
+      line-height: 1;
+      margin: 0;
+      background: linear-gradient(180deg, var(--accent), color-mix(in oklab, var(--accent) 60%, var(--card)));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.8;
+    }
 
-  .btn {
-    display: inline-block;
-    background: var(--primary);
-    color: white;
-    text-decoration: none;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-weight: bold;
-    transition: transform 0.2s;
-  }
+    .title{margin:10px 0;font-size:1.8rem;font-weight:800}
+    .subtitle{margin:0 0 30px;color:var(--muted);font-size:1.1rem}
 
-  .btn:hover {
-    transform: scale(1.05);
-  }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: var(--accent-contrast);
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 15px color-mix(in oklab, var(--accent) 30%, transparent);
+    }
 
-  .idiom-box {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px dashed #abc;
-    font-size: 0.9rem;
-    color: #5b7a8c;
-  }
-</style>
+    .back-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px color-mix(in oklab, var(--accent) 40%, transparent);
+    }
+
+    .theme-toggle{
+      position: absolute; top: 20px; right: 20px;
+      appearance:none; border:1px solid color-mix(in oklab, var(--card) 82%, var(--text));
+      background:var(--card); color:var(--text);
+      border-radius:999px; padding:.4rem .7rem; cursor:pointer;
+    }
+
+    footer{ margin-top:40px; color:var(--muted); font-size:.9rem; }
+  </style>
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" title="Přepnout motiv">🌓</button>
 
-<div class="error-card">
-  <div class="error-code">404</div>
-  <h1>Tady chcípl pes.</h1>
-  <p>Hledaná stránka <b>vzala nohy na ramena</b> a už je nejspíš za horama.</p>
-  
-  <a href="/" class="btn">Vrátit se domů</a>
+  <main class="wrap">
+    <div class="card">
+      <div class="error-code">404</div>
+      <h1 class="title">Stránka nenalezena</h1>
+      <p class="subtitle">Vypadá to, že jsi zabloudil do prázdnoty. Tato cesta nikam nevede.</p>
+      
+      <a href="https://www.lukkesa.fun" class="back-btn">
+        <span>🏠</span> Zpět na hlavní web
+      </a>
 
-  <div class="idiom-box">
-    Možná jsme <b>šlápli vedle</b>, zkuste to znovu od začátku.
-  </div>
-</div>
+      <footer>
+        <small> <span id="year"></span> lukkesa</small>
+      </footer>
+    </div>
+  </main>
 
+  <script>
+    const key = 'linktree-theme';
+    const root = document.documentElement;
+    const saved = localStorage.getItem(key);
+
+    function applyTheme(mode){
+      if(mode === 'light') root.classList.add('light');
+      else root.classList.remove('light');
+      localStorage.setItem(key, mode);
+    }
+    if(saved) applyTheme(saved);
+    else localStorage.setItem(key, 'dark');
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const current = localStorage.getItem(key);
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
