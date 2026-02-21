@@ -168,8 +168,8 @@
       const year = now.getFullYear();
       
       // Nastavení startu (např. 15. února) a konce (28. února)
-      const startDate = new Date(year, 1, 15); // 1 = Únor (indexováno od 0)
-      const endDate = new Date(year, 1, 28);
+      const startDate = new Date(year, 1, 1); // 1 = Únor (indexováno od 0)
+      const endDate = new Date(year, 30, 1);
       
       const total = endDate - startDate;
       const current = now - startDate;
@@ -195,3 +195,4 @@
   </script>
 </body>
 </html>
+
